@@ -30,7 +30,6 @@ class ProvinciaController extends Controller
      */
     public function store(Request $request)
     {
-        // Validar que no se repita el nombre
         $validator = Validator::make($request->all(), [
             'nombre_prov' => 'required|unique:provincia,nombre_prov'
         ], [
@@ -76,7 +75,6 @@ class ProvinciaController extends Controller
     {
         $provincia = Provincia::findOrFail($id);
         
-        // Validar que no se repita el nombre, excluyendo el registro actual
         $validator = Validator::make($request->all(), [
             'nombre_prov' => 'required|unique:provincia,nombre_prov,' . $id
         ], [

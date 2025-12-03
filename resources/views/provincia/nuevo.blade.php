@@ -20,9 +20,6 @@
             <label for="nombre_prov" class="form-label">Nombre de la Provincia</label>
             <input type="text" class="form-control @error('nombre_prov') is-invalid @enderror" 
                    id="nombre_prov" name="nombre_prov" value="{{ old('nombre_prov') }}">
-            @error('nombre_prov')
-                <div class="invalid-feedback">{{ $message }}</div>
-            @enderror
         </div>
         
         <button type="submit" class="btn btn-primary">
