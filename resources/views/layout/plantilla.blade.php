@@ -99,8 +99,8 @@
                                 </ul>
                             </div>
                         @else
-                            <a href="{{ route('login') }}" class="text-light me-3"><i class="fa fa-sign-in-alt me-2"></i>Login</a>
-                            <a href="{{ route('register') }}" class="text-light"><i class="fa fa-user-plus me-2"></i>Registrarse</a>
+                            <a href="{{ route('login') }}" class="text-light me-3"></a>
+                            <a href="{{ route('register') }}" class="text-light"></a>
                         @endauth
                     </div>
                 </div>

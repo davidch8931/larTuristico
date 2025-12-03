@@ -11,7 +11,7 @@ Route::get('/', function () {
     if (auth()->check()) {
         return redirect()->route('dashboard');
     }
-    return view('welcome');
+    return redirect()->route('login');
 });
 
 // Rutas públicas (sin autenticación)

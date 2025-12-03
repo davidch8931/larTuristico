@@ -19,7 +19,7 @@
                         </div>
                     @endif
 
-                    <form method="POST" action="{{ route('register') }}">
+                    <form method="POST" action="{{ route('register') }}" id="frm_register">
                         @csrf
                         <div class="mb-3">
                             <label for="name" class="form-label">Nombre Completo</label>
@@ -67,4 +67,52 @@
         </div>
     </div>
 </div>
+
+<script>
+    $(document).ready(function() {
+        $("#frm_register").validate({
+            rules: {
+                name: {
+                    required: true,
+                    minlength: 3,
+                    maxlength: 100
+                },
+                email: {
+                    required: true,
+                    email: true
+                },
+                password: {
+                    required: true,
+                    minlength: 8
+                },
+                password_confirmation: {
+                    required: true,
+                    minlength: 8,
+                    equalTo: "#password"
+                }
+            },
+            messages: {
+                name: {
+                    required: "Por favor ingrese su nombre completo",
+                    minlength: "El nombre debe tener al menos 3 caracteres",
+                    maxlength: "El nombre debe tener máximo 100 caracteres"
+                },
+                email: {
+                    required: "Por favor ingrese su correo electrónico",
+                    email: "Por favor ingrese un correo electrónico válido"
+                },
+                password: {
+                    required: "Por favor ingrese una contraseña",
+                    minlength: "La contraseña debe tener al menos 8 caracteres"
+                },
+                password_confirmation: {
+                    required: "Por favor confirme su contraseña",
+                    minlength: "La contraseña debe tener al menos 8 caracteres",
+                    equalTo: "Las contraseñas no coinciden"
+                }
+            },
+        });
+    });
+</script>
+
 @endsection
