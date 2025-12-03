@@ -4,11 +4,25 @@
 <div class="container mt-4">
     <h1 class="mb-4">Registrar Nueva Provincia</h1>
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('provincias.store') }}" method="POST" id="frm_provincia">
         @csrf
         <div class="mb-3">
             <label for="nombre_prov" class="form-label">Nombre de la Provincia</label>
-            <input type="text" class="form-control" id="nombre_prov" name="nombre_prov">
+            <input type="text" class="form-control @error('nombre_prov') is-invalid @enderror" 
+                   id="nombre_prov" name="nombre_prov" value="{{ old('nombre_prov') }}">
+            @error('nombre_prov')
+                <div class="invalid-feedback">{{ $message }}</div>
+            @enderror
         </div>
         
         <button type="submit" class="btn btn-primary">
