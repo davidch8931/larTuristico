@@ -3,20 +3,23 @@
 namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
-use App\Models\LugarTuristico;
-use App\Models\Provincia;
 use App\Models\TipoAtraccion;
 use Illuminate\Support\Facades\Validator;
 
-class LugarTuristicoController extends Controller
+class TipoAtraccionController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+    
     public function index()
     {
-        $lugaresTuristicos = LugarTuristico::all();
-        return view('lugarTuristico.index', compact('lugaresTuristicos'));
+        $tipoAtracciones = TipoAtraccion::all();
+        return view('tipoAtraccion.index', compact('tipoAtracciones'));
     }
 
     /**
@@ -24,9 +27,7 @@ class LugarTuristicoController extends Controller
      */
     public function create()
     {
-        $provincias = Provincia::all();
-        $tipos = TipoAtraccion::all();
-        return view('lugarTuristico.nuevo', compact('provincias', 'tipos'));
+        return view('tipoAtraccion.nuevo');
     }
 
     /**
@@ -35,10 +36,10 @@ class LugarTuristicoController extends Controller
     public function store(Request $request)
     {
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|unique:lugar_turistico,nombre'
+            'nombre_at' => 'required|unique:tipo_atraccion,nombre_at'
         ], [
-            'nombre.required' => 'Por favor ingrese el nombre del lugar turístico',
-            'nombre.unique' => 'El nombre del lugar turístico ya existe'
+            'nombre_at.required' => 'Por favor ingrese el nombre del tipo de atracción',
+            'nombre_at.unique' => 'El nombre del tipo de atracción ya existe'
         ]);
         
         if ($validator->fails()) {
@@ -48,17 +49,11 @@ class LugarTuristicoController extends Controller
         }
         
         $datos = [
-            'nombre' => $request->nombre,
-            'coordenadas' => $request->coordenadas,
-            'descripcion' => $request->descripcion,
-            'anio' => $request->anio,
-            'accesibilidad' => $request->accesibilidad,
-            'fk_id_provincia' => $request->fk_id_provincia,
-            'fk_id_tipo' => $request->fk_id_tipo,
+            'nombre_at' => $request->nombre_at,
         ];
         
-        LugarTuristico::create($datos);
-        return redirect()->route('lugarTuristico.index')->with('message', 'Lugar turístico creado exitosamente');
+        TipoAtraccion::create($datos);
+        return redirect()->route('tipoAtraccion.index')->with('message', 'Tipo de atracción creado exitosamente');
     }
 
     /**
@@ -74,10 +69,8 @@ class LugarTuristicoController extends Controller
      */
     public function edit(string $id)
     {
-        $lugarTuristico = LugarTuristico::findOrFail($id);
-        $provincias = Provincia::all();
-        $tipos = TipoAtraccion::all();
-        return view('lugarTuristico.editar', compact('lugarTuristico', 'provincias', 'tipos'));
+        $tipoAtraccion = TipoAtraccion::findOrFail($id);
+        return view('tipoAtraccion.editar', compact('tipoAtraccion'));
     }
 
     /**
@@ -85,13 +78,13 @@ class LugarTuristicoController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        $lugarTuristico = LugarTuristico::findOrFail($id);
+        $tipoAtraccion = TipoAtraccion::findOrFail($id);
         
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|unique:lugar_turistico,nombre,' . $id
+            'nombre_at' => 'required|unique:tipo_atraccion,nombre_at,' . $id
         ], [
-            'nombre.required' => 'Por favor ingrese el nombre del lugar turístico',
-            'nombre.unique' => 'El nombre del lugar turístico ya existe'
+            'nombre_at.required' => 'Por favor ingrese el nombre del tipo de atracción',
+            'nombre_at.unique' => 'El nombre del tipo de atracción ya existe'
         ]);
         
         if ($validator->fails()) {
@@ -101,17 +94,11 @@ class LugarTuristicoController extends Controller
         }
         
         $datos = [
-            'nombre' => $request->nombre,
-            'coordenadas' => $request->coordenadas,
-            'descripcion' => $request->descripcion,
-            'anio' => $request->anio,
-            'accesibilidad' => $request->accesibilidad,
-            'fk_id_provincia' => $request->fk_id_provincia,
-            'fk_id_tipo' => $request->fk_id_tipo,
+            'nombre_at' => $request->nombre_at,
         ];
         
-        $lugarTuristico->update($datos);
-        return redirect()->route('lugarTuristico.index')->with('message', 'Lugar turístico actualizado correctamente');
+        $tipoAtraccion->update($datos);
+        return redirect()->route('tipoAtraccion.index')->with('message', 'Tipo de atracción actualizado correctamente');
     }
 
     /**
@@ -119,7 +106,14 @@ class LugarTuristicoController extends Controller
      */
     public function destroy(string $id)
     {
-        LugarTuristico::destroy($id);
-        return redirect()->route('lugarTuristico.index')->with('message', 'Lugar turístico eliminado correctamente');
+        $tipoAtraccion = TipoAtraccion::findOrFail($id);
+
+        if ($tipoAtraccion->lugaresTuristicos()->count() > 0) {
+            return redirect()->route('tipoAtraccion.index')
+                ->with('error', 'No se puede eliminar el tipo de atracción porque tiene lugares turísticos registrados.');
+        }
+
+        TipoAtraccion::destroy($id);
+        return redirect()->route('tipoAtraccion.index')->with('message', 'Tipo de atracción eliminado correctamente');
     }
 }

@@ -78,10 +78,30 @@
                         <a class="btn btn-sm btn-outline-light btn-sm-square rounded-circle" href=""><i class="fab fa-youtube fw-normal"></i></a>
                     </div>
                 </div>
-                <div class="col-lg-4 text-center text-lg-end">
+                                <div class="col-lg-4 text-center text-lg-end">
                     <div class="d-inline-flex align-items-center" style="height: 45px;">
-                        <a href="#"><small class="me-3 text-light"><i class="fa fa-sign-in-alt me-2"></i>Login</small></a>
-                        
+                        @auth
+                            <div class="dropdown">
+                                <button class="btn btn-link text-light dropdown-toggle" type="button" id="userDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                                    <i class="fa fa-user me-2"></i>{{ Auth::user()->name }}
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="userDropdown">
+                                    <li><a class="dropdown-item" href="{{ route('dashboard') }}"><i class="fa fa-dashboard me-2"></i>Dashboard</a></li>
+                                    <li><hr class="dropdown-divider"></li>
+                                    <li>
+                                        <form action="{{ route('logout') }}" method="POST" class="dropdown-item p-0">
+                                            @csrf
+                                            <button type="submit" class="btn btn-link text-dark w-100 text-start">
+                                                <i class="fa fa-sign-out-alt me-2"></i>Cerrar Sesión
+                                            </button>
+                                        </form>
+                                    </li>
+                                </ul>
+                            </div>
+                        @else
+                            <a href="{{ route('login') }}" class="text-light me-3"><i class="fa fa-sign-in-alt me-2"></i>Login</a>
+                            <a href="{{ route('register') }}" class="text-light"><i class="fa fa-user-plus me-2"></i>Registrarse</a>
+                        @endauth
                     </div>
                 </div>
             </div>
@@ -99,11 +119,17 @@
                     <span class="fa fa-bars"></span>
                 </button>
                 <div class="collapse navbar-collapse" id="navbarCollapse">
-                    <div class="navbar-nav ms-auto py-0">
-                        <a href="/lugarTuristico/" class="nav-item nav-link {{ request()->is('lugarTuristico*') ? 'active' : '' }}">Lugar Turistico</a>
-                        <a href="/provincias/" class="nav-item nav-link  {{ request()->is('provincias*') ? 'active' : '' }}">Provincia</a>
-                        <a href="/tipoAtraccion/" class="nav-item nav-link {{ request()->is('tipoAtraccion*') ? 'active' : '' }}">Tipo de Atraccion</a>
-                </div>
+                                        <div class="navbar-nav ms-auto py-0">
+                        @auth
+                            <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
+                            <a href="{{ route('lugarTuristico.index') }}" class="nav-item nav-link {{ request()->is('lugarTuristico*') ? 'active' : '' }}">Lugar Turistico</a>
+                            <a href="{{ route('provincias.index') }}" class="nav-item nav-link {{ request()->is('provincias*') ? 'active' : '' }}">Provincia</a>
+                            <a href="{{ route('tipoAtraccion.index') }}" class="nav-item nav-link {{ request()->is('tipoAtraccion*') ? 'active' : '' }}">Tipo de Atraccion</a>
+                        @else
+                            <a href="{{ route('login') }}" class="nav-item nav-link {{ request()->is('login') ? 'active' : '' }}">Login</a>
+                            <a href="{{ route('register') }}" class="nav-item nav-link {{ request()->is('register') ? 'active' : '' }}">Registrarse</a>
+                        @endauth
+                    </div>
             </nav>
     <br><br><br><br>
     <div style="color: black">

@@ -4,13 +4,16 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\Provincia;
-use Illuminate\Support\Facades\Validator; // Agregar esto
+use Illuminate\Support\Facades\Validator;
 
 class ProvinciaController extends Controller
 {
-    /**
-     * Display a listing of the resource.
-     */
+    
+    public function __construct()
+    {
+        $this->middleware('auth');
+    }
+
     public function index()
     {
         $provincias = Provincia::all();
