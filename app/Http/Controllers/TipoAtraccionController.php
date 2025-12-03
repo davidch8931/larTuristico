@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Http\Request;
 use App\Models\TipoAtraccion;
+use Illuminate\Support\Facades\Validator;
 
 class TipoAtraccionController extends Controller
 {
@@ -29,6 +30,19 @@ class TipoAtraccionController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nombre_at' => 'required|unique:tipo_atraccion,nombre_at'
+        ], [
+            'nombre_at.required' => 'Por favor ingrese el nombre del tipo de atracción',
+            'nombre_at.unique' => 'El nombre del tipo de atracción ya existe'
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
         $datos = [
             'nombre_at' => $request->nombre_at,
         ];
@@ -60,6 +74,20 @@ class TipoAtraccionController extends Controller
     public function update(Request $request, string $id)
     {
         $tipoAtraccion = TipoAtraccion::findOrFail($id);
+        
+        $validator = Validator::make($request->all(), [
+            'nombre_at' => 'required|unique:tipo_atraccion,nombre_at,' . $id
+        ], [
+            'nombre_at.required' => 'Por favor ingrese el nombre del tipo de atracción',
+            'nombre_at.unique' => 'El nombre del tipo de atracción ya existe'
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
         $datos = [
             'nombre_at' => $request->nombre_at,
         ];
@@ -73,6 +101,13 @@ class TipoAtraccionController extends Controller
      */
     public function destroy(string $id)
     {
+        $tipoAtraccion = TipoAtraccion::findOrFail($id);
+
+        if ($tipoAtraccion->lugaresTuristicos()->count() > 0) {
+            return redirect()->route('tipoAtraccion.index')
+                ->with('error', 'No se puede eliminar el tipo de atracción porque tiene lugares turísticos registrados.');
+        }
+
         TipoAtraccion::destroy($id);
         return redirect()->route('tipoAtraccion.index')->with('message', 'Tipo de atracción eliminado correctamente');
     }

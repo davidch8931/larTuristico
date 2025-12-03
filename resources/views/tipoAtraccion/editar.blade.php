@@ -4,17 +4,28 @@
 <div class="container mt-4">
     <h1 class="mb-4">Editar Tipo de Atracción</h1>
 
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
+
     <form action="{{ route('tipoAtraccion.update', $tipoAtraccion->id) }}" method="POST" id="frm_tipoAtraccion">
         @csrf
         @method('PUT')
         <div class="mb-3">
             <label for="nombre_at" class="form-label">Nombre del Tipo de Atracción</label>
-            <input type="text" class="form-control" id="nombre_at" name="nombre_at" 
-                   value="{{ $tipoAtraccion->nombre_at }}">
+            <input type="text" class="form-control @error('nombre_at') is-invalid @enderror" 
+                   id="nombre_at" name="nombre_at" 
+                   value="{{ old('nombre_at', $tipoAtraccion->nombre_at) }}">
         </div>
         
         <button type="submit" class="btn btn-primary">
-            <i class="fa save"></i> Actualizar
+            <i class="fa fa-save"></i> Actualizar
         </button>
         <a href="{{ route('tipoAtraccion.index') }}" class="btn btn-secondary">
             <i class="fa fa-times"></i> Cancelar

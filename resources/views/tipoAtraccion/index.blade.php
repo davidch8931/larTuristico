@@ -14,6 +14,16 @@
         </script>
     @endif
 
+    @if(session('error'))
+        <script>
+            Swal.fire({
+                title: "ERROR",
+                text: "{{ session('error') }}",
+                icon: "error",
+            });
+        </script>
+    @endif
+
     <div class="mb-3">
         <a href="{{ route('tipoAtraccion.create') }}" class="btn btn-primary">
             <i class="fa fa-plus"></i> Registrar tipo de atracción

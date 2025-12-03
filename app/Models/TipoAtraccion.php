@@ -12,4 +12,8 @@ class TipoAtraccion extends Model
     protected $fillable = [
         'nombre_at',
     ];
+    public function lugaresTuristicos()
+    {
+        return $this->hasMany(LugarTuristico::class, 'fk_id_tipo');
+    }
 }
