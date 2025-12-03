@@ -6,6 +6,7 @@ use Illuminate\Http\Request;
 use App\Models\LugarTuristico;
 use App\Models\Provincia;
 use App\Models\TipoAtraccion;
+use Illuminate\Support\Facades\Validator;
 
 class LugarTuristicoController extends Controller
 {
@@ -33,9 +34,25 @@ class LugarTuristicoController extends Controller
      */
     public function store(Request $request)
     {
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|unique:lugar_turistico,nombre'
+        ], [
+            'nombre.required' => 'Por favor ingrese el nombre del lugar turístico',
+            'nombre.unique' => 'El nombre del lugar turístico ya existe'
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
+        // Crear coordenadas desde latitud y longitud
+        $coordenadas = $request->latitud . ',' . $request->longitud;
+        
         $datos = [
             'nombre' => $request->nombre,
-            'coordenadas' => $request->coordenadas,
+            'coordenadas' => $coordenadas,
             'descripcion' => $request->descripcion,
             'anio' => $request->anio,
             'accesibilidad' => $request->accesibilidad,
@@ -72,9 +89,26 @@ class LugarTuristicoController extends Controller
     public function update(Request $request, string $id)
     {
         $lugarTuristico = LugarTuristico::findOrFail($id);
+        
+        $validator = Validator::make($request->all(), [
+            'nombre' => 'required|unique:lugar_turistico,nombre,' . $id
+        ], [
+            'nombre.required' => 'Por favor ingrese el nombre del lugar turístico',
+            'nombre.unique' => 'El nombre del lugar turístico ya existe'
+        ]);
+        
+        if ($validator->fails()) {
+            return redirect()->back()
+                ->withErrors($validator)
+                ->withInput();
+        }
+        
+        // Crear coordenadas desde latitud y longitud
+        $coordenadas = $request->latitud . ',' . $request->longitud;
+        
         $datos = [
             'nombre' => $request->nombre,
-            'coordenadas' => $request->coordenadas,
+            'coordenadas' => $coordenadas,
             'descripcion' => $request->descripcion,
             'anio' => $request->anio,
             'accesibilidad' => $request->accesibilidad,

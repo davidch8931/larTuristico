@@ -3,12 +3,22 @@
 @section('contenido')
 <div class="container mt-4">
     <h1 class="mb-4">Registrar Nuevo Lugar Turístico</h1>
+    @if($errors->any())
+        <div class="alert alert-danger">
+            <ul>
+                @foreach($errors->all() as $error)
+                    <li>{{ $error }}</li>
+                @endforeach
+            </ul>
+        </div>
+    @endif
 
     <form action="{{ route('lugarTuristico.store') }}" method="POST" id="frm_lugar_turistico">
         @csrf
         <div class="mb-3">
             <label for="nombre" class="form-label">Nombre del Lugar Turístico</label>
-            <input type="text" class="form-control" id="nombre" name="nombre">
+            <input type="text" class="form-control @error('nombre') is-invalid @enderror" 
+                   id="nombre" name="nombre" value="{{ old('nombre') }}">
         </div>
 
         <div class="row">

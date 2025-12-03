@@ -19,7 +19,7 @@
             <i class="fa fa-plus"></i> Registrar lugar turístico
         </a>
     </div>
-
+    
     <div class="table-responsive">
         <table class="table table-bordered table-striped table-hover">
             <thead>
