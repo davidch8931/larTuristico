@@ -32,11 +32,9 @@ class ProvinciaController extends Controller
     {
         // Validar que no se repita el nombre
         $validator = Validator::make($request->all(), [
-            'nombre_prov' => 'required|min:3|max:100|unique:provincia,nombre_prov'
+            'nombre_prov' => 'required|unique:provincia,nombre_prov'
         ], [
             'nombre_prov.required' => 'Por favor ingrese el nombre de la provincia',
-            'nombre_prov.min' => 'El nombre de la provincia debe tener al menos 3 caracteres',
-            'nombre_prov.max' => 'El nombre de la provincia debe tener máximo 100 caracteres',
             'nombre_prov.unique' => 'El nombre de la provincia ya existe'
         ]);
         
@@ -80,11 +78,9 @@ class ProvinciaController extends Controller
         
         // Validar que no se repita el nombre, excluyendo el registro actual
         $validator = Validator::make($request->all(), [
-            'nombre_prov' => 'required|min:3|max:100|unique:provincia,nombre_prov,' . $id
+            'nombre_prov' => 'required|unique:provincia,nombre_prov,' . $id
         ], [
             'nombre_prov.required' => 'Por favor ingrese el nombre de la provincia',
-            'nombre_prov.min' => 'El nombre de la provincia debe tener al menos 3 caracteres',
-            'nombre_prov.max' => 'El nombre de la provincia debe tener máximo 100 caracteres',
             'nombre_prov.unique' => 'El nombre de la provincia ya existe'
         ]);
         
