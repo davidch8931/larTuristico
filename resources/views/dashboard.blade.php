@@ -5,16 +5,15 @@
     <div class="row">
         <div class="col-md-12">
             <div class="card">
-                <div class="card-header">
-                    <h3>Dashboard</h3>
-                    <p class="text-muted">Bienvenido, {{ Auth::user()->name }}</p>
+                <div class="">
+                    <h3>Menu Principal</h3>
                 </div>
                 <div class="card-body">
                     <div class="row">
                         <div class="col-md-4 mb-3">
                             <div class="card text-white bg-primary">
                                 <div class="card-body">
-                                    <h5 class="card-title">Provincias</h5>
+                                    <h5 class="card-title" >Provincias</h5>
                                     <p class="card-text">Administra las provincias</p>
                                     <a href="{{ route('provincias.index') }}" class="btn btn-light">Ir a Provincias</a>
                                 </div>

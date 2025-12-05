@@ -121,7 +121,7 @@
                 <div class="collapse navbar-collapse" id="navbarCollapse">
                                         <div class="navbar-nav ms-auto py-0">
                         @auth
-                            <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Dashboard</a>
+                            <a href="{{ route('dashboard') }}" class="nav-item nav-link {{ request()->is('dashboard') ? 'active' : '' }}">Menu Principal</a>
                             <a href="{{ route('lugarTuristico.index') }}" class="nav-item nav-link {{ request()->is('lugarTuristico*') ? 'active' : '' }}">Lugar Turistico</a>
                             <a href="{{ route('provincias.index') }}" class="nav-item nav-link {{ request()->is('provincias*') ? 'active' : '' }}">Provincia</a>
                             <a href="{{ route('tipoAtraccion.index') }}" class="nav-item nav-link {{ request()->is('tipoAtraccion*') ? 'active' : '' }}">Tipo de Atraccion</a>

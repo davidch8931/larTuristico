@@ -108,7 +108,7 @@ class LugarTuristicoController extends Controller
                 ->withInput();
         }
         
-        // Crear coordenadas desde latitud y longitud
+        
         $coordenadas = $request->latitud . ',' . $request->longitud;
         
         $datos = [
