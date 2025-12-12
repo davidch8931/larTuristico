@@ -45,11 +45,11 @@
                         <td>{{ $indice + 1 }}</td>  
                         <td>{{ $tipoTemporal->nombre_at }}</td>
                         <td>
-                            <a href="{{ route('tipoAtraccion.edit', $tipoTemporal->id) }}" class="btn btn-outline-warning btn-sm">
+                            <a href="{{ route('tipoAtraccion.edit', $tipoTemporal->id_atraccion) }}" class="btn btn-outline-warning btn-sm">
                                 <i class="fa fa-pen"></i>
                             </a>
 
-                            <form action="{{ route('tipoAtraccion.destroy', $tipoTemporal->id) }}" method="POST" style="display:inline;" class="form-eliminar">
+                            <form action="{{ route('tipoAtraccion.destroy', $tipoTemporal->id_atraccion) }}" method="POST" style="display:inline;" class="form-eliminar">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-danger btn-sm btn-eliminar">

@@ -61,17 +61,17 @@
             <select class="form-control" id="fk_id_provincia" name="fk_id_provincia">
                 <option value="">Seleccione una provincia</option>
                 @foreach($provincias as $provincia)
-                    <option value="{{ $provincia->id }}">{{ $provincia->nombre_prov }}</option>
+                    <option value="{{ $provincia->id_provincia }}">{{ $provincia->nombre_prov }}</option>
                 @endforeach
             </select>
         </div>
-
+    
         <div class="mb-3">
             <label for="fk_id_tipo" class="form-label">Tipo de Atracción</label>
             <select class="form-control" id="fk_id_tipo" name="fk_id_tipo">
                 <option value="">Seleccione un tipo de atracción</option>
                 @foreach($tipoAtracciones as $tipoAtraccion)
-                    <option value="{{ $tipoAtraccion->id }}">{{ $tipoAtraccion->nombre_at }}</option>
+                    <option value="{{ $tipoAtraccion->id_atraccion }}">{{ $tipoAtraccion->nombre_at }}</option>
                 @endforeach
             </select>
         </div>

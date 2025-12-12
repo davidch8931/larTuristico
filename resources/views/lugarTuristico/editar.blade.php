@@ -14,7 +14,7 @@
         </div>
     @endif
 
-    <form action="{{ route('lugarTuristico.update', $lugarTuristico->id) }}" method="POST" id="frm_lugar_turistico">
+    <form action="{{ route('lugarTuristico.update', $lugarTuristico->id_lugar) }}" method="POST" id="frm_lugar_turistico">
         @csrf
         @method('PUT')
         <div class="mb-3">
@@ -63,7 +63,7 @@
             <select class="form-control" id="fk_id_provincia" name="fk_id_provincia">
                 <option value="">Seleccione una provincia</option>
                 @foreach($provincias as $provincia)
-                    <option value="{{ $provincia->id }}" {{ $lugarTuristico->fk_id_provincia == $provincia->id ? 'selected' : '' }}>
+                    <option value="{{ $provincia->id_provincia }}" {{ $lugarTuristico->fk_id_provincia == $provincia->id_provincia ? 'selected' : '' }}>
                         {{ $provincia->nombre_prov }}
                     </option>
                 @endforeach
@@ -75,7 +75,7 @@
             <select class="form-control" id="fk_id_tipo" name="fk_id_tipo">
                 <option value="">Seleccione un tipo de atracción</option>
                 @foreach($tipoAtracciones as $tipoAtraccion)
-                    <option value="{{ $tipoAtraccion->id }}" {{ $lugarTuristico->fk_id_tipo == $tipoAtraccion->id ? 'selected' : '' }}>
+                    <option value="{{ $tipoAtraccion->id_atraccion }}" {{ $lugarTuristico->fk_id_tipo == $tipoAtraccion->id_atraccion ? 'selected' : '' }}>
                         {{ $tipoAtraccion->nombre_at }}
                     </option>
                 @endforeach

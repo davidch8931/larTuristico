@@ -47,11 +47,11 @@
                         <td>{{ $lugarTemporal->provincia->nombre_prov ?? 'N/A' }}</td>
                         <td>{{ $lugarTemporal->tipoAtraccion->nombre_at ?? 'N/A' }}</td>
                         <td>
-                            <a href="{{ route('lugarTuristico.edit', $lugarTemporal->id) }}" class="btn btn-outline-warning btn-sm">
+                            <a href="{{ route('lugarTuristico.edit', $lugarTemporal->id_lugar) }}" class="btn btn-outline-warning btn-sm">
                                 <i class="fa fa-pen"></i>
                             </a>
 
-                            <form action="{{ route('lugarTuristico.destroy', $lugarTemporal->id) }}" method="POST" style="display:inline;" class="form-eliminar">
+                            <form action="{{ route('lugarTuristico.destroy', $lugarTemporal->id_lugar) }}" method="POST" style="display:inline;" class="form-eliminar">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-danger btn-sm btn-eliminar">

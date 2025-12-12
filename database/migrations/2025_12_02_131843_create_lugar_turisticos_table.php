@@ -12,14 +12,14 @@ return new class extends Migration
     public function up(): void
     {
         Schema::create('lugar_turistico', function (Blueprint $table) {
-            $table->id();
+            $table->id('id_lugar');
             $table->string('nombre');
             $table->string('coordenadas');
             $table->string('descripcion');
             $table->integer('anio');
             $table->string('accesibilidad');
-            $table->foreignId('fk_id_provincia')->constrained('provincia');
-            $table->foreignId('fk_id_tipo')->constrained('tipo_atraccion');
+            $table->foreignId('fk_id_provincia')->constrained('provincia', 'id_provincia');
+            $table->foreignId('fk_id_tipo')->constrained('tipo_atraccion', 'id_atraccion');
             $table->timestamps();
         });
     }

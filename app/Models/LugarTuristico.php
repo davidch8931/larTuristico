@@ -9,6 +9,7 @@ class LugarTuristico extends Model
 {
     use HasFactory;
     protected $table = 'lugar_turistico';
+    protected $primaryKey = 'id_lugar'; 
     protected $fillable = [
         'nombre',
         'coordenadas',
@@ -21,12 +22,12 @@ class LugarTuristico extends Model
     // Relación con Provincia
     public function provincia()
     {
-        return $this->belongsTo(Provincia::class, 'fk_id_provincia');
+        return $this->belongsTo(Provincia::class, 'fk_id_provincia', 'id_provincia');
     }
 
     // Relación con TipoAtraccion
     public function tipoAtraccion()
     {
-        return $this->belongsTo(TipoAtraccion::class, 'fk_id_tipo');
+        return $this->belongsTo(TipoAtraccion::class, 'fk_id_tipo','id_atraccion');
     }
 }

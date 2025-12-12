@@ -45,11 +45,11 @@
                         <td>{{ $indice +1 }}</td>  
                         <td>{{ $provinciaTemporal->nombre_prov }}</td>
                         <td>
-                            <a href="{{ route('provincias.edit', $provinciaTemporal->id) }}" class="btn btn-outline-warning btn-sm">
+                            <a href="{{ route('provincias.edit', $provinciaTemporal->id_provincia) }}" class="btn btn-outline-warning btn-sm">
                                 <i class="fa fa-pen"></i>
                             </a>
 
-                            <form action="{{ route('provincias.destroy', $provinciaTemporal->id) }}" method="POST" style="display:inline;" class="form-eliminar">
+                            <form action="{{ route('provincias.destroy', $provinciaTemporal->id_provincia) }}" method="POST" style="display:inline;" class="form-eliminar">
                                 @csrf
                                 @method('DELETE')
                                 <button type="submit" class="btn btn-outline-danger btn-sm btn-eliminar">

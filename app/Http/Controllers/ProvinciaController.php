@@ -79,7 +79,7 @@ class ProvinciaController extends Controller
         $provincia = Provincia::findOrFail($id);
         
         $validator = Validator::make($request->all(), [
-            'nombre_prov' => 'required|unique:provincia,nombre_prov,' . $id
+            'nombre_prov' => 'required|unique:provincia,nombre_prov,' . $id .',id_provincia'
         ], [
             'nombre_prov.required' => 'Por favor ingrese el nombre de la provincia',
             'nombre_prov.unique' => 'El nombre de la provincia ya existe'

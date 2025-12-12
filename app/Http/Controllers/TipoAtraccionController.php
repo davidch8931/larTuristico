@@ -81,7 +81,7 @@ class TipoAtraccionController extends Controller
         $tipoAtraccion = TipoAtraccion::findOrFail($id);
         
         $validator = Validator::make($request->all(), [
-            'nombre_at' => 'required|unique:tipo_atraccion,nombre_at,' . $id
+            'nombre_at' => 'required|unique:tipo_atraccion,nombre_at,' . $id . ',id_atraccion'
         ], [
             'nombre_at.required' => 'Por favor ingrese el nombre del tipo de atracción',
             'nombre_at.unique' => 'El nombre del tipo de atracción ya existe'

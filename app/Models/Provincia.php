@@ -9,12 +9,13 @@ class Provincia extends Model
 {
     use HasFactory;
     protected $table = 'provincia';
+    protected $primaryKey = 'id_provincia'; 
     protected $fillable = [
         'nombre_prov',
     ];
 
     public function lugaresTuristicos()
     {
-        return $this->hasMany(LugarTuristico::class, 'fk_id_provincia');
+        return $this->hasMany(LugarTuristico::class, 'fk_id_provincia','id_provincia');
     }
 }

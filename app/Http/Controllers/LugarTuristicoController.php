@@ -96,7 +96,7 @@ class LugarTuristicoController extends Controller
         $lugarTuristico = LugarTuristico::findOrFail($id);
         
         $validator = Validator::make($request->all(), [
-            'nombre' => 'required|unique:lugar_turistico,nombre,' . $id
+            'nombre' => 'required|unique:lugar_turistico,nombre,' . $id . ',id_lugar'
         ], [
             'nombre.required' => 'Por favor ingrese el nombre del lugar turístico',
             'nombre.unique' => 'El nombre del lugar turístico ya existe'
